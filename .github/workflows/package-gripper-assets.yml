@@ -1,0 +1,48 @@
+name: Package Gripper Assets
+
+on:
+  push:
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    name: Create Gripper ZIPs
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Package gripper models
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+
+          for family in EGK EGU EZU; do
+            [[ -d "$family" ]] || continue
+
+            while IFS= read -r asset_dir; do
+              archive_name="${asset_dir//\//-}"
+              archive_name="${archive_name// /-}.zip"
+              parent_dir="$(dirname "$asset_dir")"
+              asset_name="$(basename "$asset_dir")"
+
+              (
+                cd "$parent_dir"
+                zip -r "$GITHUB_WORKSPACE/dist/$archive_name" "$asset_name"
+              )
+            done < <(find "$family" -mindepth 1 -maxdepth 1 -type d -print | sort)
+          done
+
+      - name: Upload gripper ZIPs
+        uses: actions/upload-artifact@v4
+        with:
+          name: gripper-assets-${{ github.sha }}
+          path: dist/*.zip
+          if-no-files-found: error
+          retention-days: 90
