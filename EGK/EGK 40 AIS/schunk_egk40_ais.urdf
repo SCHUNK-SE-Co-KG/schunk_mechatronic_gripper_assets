@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='utf-8'?>
+<robot name="schunk_egk40_ais">
+  <link name="base_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="meshes/base_link.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="schunk_anthracite">
+        <color rgba="0.24 0.27 0.29 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="meshes/base_link.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0.00116673052 0.0162357615 0.000191904526" rpy="0 0 0" />
+      <mass value="1.02" />
+      <inertia ixx="0.000595149973" ixy="0" ixz="0" iyy="0.000904510762" iyz="0" izz="0.00105146571" />
+    </inertial>
+  </link>
+  <link name="finger_1">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="meshes/finger_1.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="schunk_anthracite">
+        <color rgba="0.24 0.27 0.29 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="meshes/finger_1.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.161605296" />
+      <inertia ixx="0.000200580319" ixy="0" ixz="0" iyy="0.000109469273" iyz="0" izz="0.000266954846" />
+    </inertial>
+  </link>
+  <joint name="finger_joint_1" type="prismatic">
+    <origin xyz="-0.00424741573 -0.0551425152 0.00548569081" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="finger_1" />
+    <axis xyz="-1 0 0" />
+    <limit lower="0" upper="0.0415" effort="100" velocity="0.2" />
+  </joint>
+  <link name="finger_2">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="meshes/finger_2.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="schunk_anthracite">
+        <color rgba="0.24 0.27 0.29 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="meshes/finger_2.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.161396514" />
+      <inertia ixx="0.000200321183" ixy="0" ixz="0" iyy="0.000109327846" iyz="0" izz="0.000266609959" />
+    </inertial>
+  </link>
+  <joint name="finger_joint_2" type="prismatic">
+    <origin xyz="0.00424741573 -0.0551425152 -0.00548569081" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="finger_2" />
+    <axis xyz="1 0 0" />
+    <limit lower="0" upper="0.0415" effort="100" velocity="0.2" />
+    <mimic joint="finger_joint_1" multiplier="1" offset="0" />
+  </joint>
+</robot>
