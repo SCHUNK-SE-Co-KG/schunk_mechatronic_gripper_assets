@@ -4,16 +4,13 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="meshes/base_link.stl" scale="0.001 0.001 0.001" />
+        <mesh filename="meshes/base_link.dae" />
       </geometry>
-      <material name="schunk_anthracite">
-        <color rgba="0.24 0.27 0.29 1" />
-      </material>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="meshes/base_link.stl" scale="0.001 0.001 0.001" />
+        <mesh filename="meshes/base_link.dae" />
       </geometry>
     </collision>
     <inertial>
